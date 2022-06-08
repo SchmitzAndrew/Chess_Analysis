@@ -25,6 +25,8 @@ def game_result(game):
     else:
         return "loss"
     
+    
+
 while True:
     game = chess.pgn.read_game(pgn)
     if game is None:
@@ -36,8 +38,10 @@ while True:
         data[3] = game.headers["WhiteElo"]
         data[4] = game.headers["BlackElo"]
         data[5] = game.headers["Timezone"]
+        #only get the hours for times
         data[6] = game.headers["StartTime"]
         data[7] = game.headers["EndTime"]
+        
         writer.writerow(data)
         
     
