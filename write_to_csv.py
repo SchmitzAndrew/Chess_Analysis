@@ -6,7 +6,7 @@ pgn = open("games/my_games.pgn")
 f= open('games_data.csv', 'w')
 
 writer = csv.writer(f)
-header = ['result', 'white_player', 'black_player', 'white_elo', 'black_elo', 'timezone', 'start_time', 'end_time']
+header = ['result', 'win', 'loss', 'draw','white_player', 'black_player', 'white_elo', 'black_elo', 'timezone', 'start_time', 'end_time']
 writer.writerow(header)
 data = header
 
@@ -33,14 +33,23 @@ while True:
         break
     else:
         data[0] = game_result(game)
-        data[1] = game.headers["White"]
-        data[2] = game.headers["Black"]
-        data[3] = game.headers["WhiteElo"]
-        data[4] = game.headers["BlackElo"]
-        data[5] = game.headers["Timezone"]
-        #only get the hours for times
-        data[6] = game.headers["StartTime"]
-        data[7] = game.headers["EndTime"]
+        #wins, loses, draws
+        data[1] = 0
+        data[2] = 0
+        data[3] = 0
+        if data[0] == "win":
+            data[1] = 1
+        elif data[0] == "loss":
+            data[2] = 1
+        else:
+            data[3] = 1
+        data[4] = game.headers["White"]
+        data[5] = game.headers["Black"]
+        data[6] = game.headers["WhiteElo"]
+        data[7] = game.headers["BlackElo"]
+        data[8] = game.headers["Timezone"]
+        data[9] = game.headers["StartTime"]
+        data[10] = game.headers["EndTime"]
         
         writer.writerow(data)
         
